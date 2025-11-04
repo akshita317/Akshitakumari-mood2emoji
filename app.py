@@ -2,6 +2,14 @@ import streamlit as st
 from textblob import TextBlob
 import re
 
+# Set page config FIRST (must be first Streamlit command)
+st.set_page_config(
+    page_title="Mood2Emoji",
+    page_icon="😀",
+    layout="wide",
+    initial_sidebar_state="expanded"
+)
+
 # Bad words filter (simple list for demonstration)
 BAD_WORDS = ['bad', 'stupid', 'hate', 'dumb', 'idiot']  # Extend as needed
 
@@ -15,7 +23,7 @@ def filter_bad_words(text):
 
 def analyze_mood(text):
     """
-    Analyze the mood of input text using TextBlob
+    Analyze the mood of input text using TextBlob with improved logic
     Returns: emoji, explanation, polarity score
     """
     if not text.strip():
@@ -29,7 +37,36 @@ def analyze_mood(text):
     blob = TextBlob(text)
     polarity = blob.sentiment.polarity
     
-    # Classify based on polarity score
+    # Check for negative keywords that TextBlob might miss
+    negative_keywords = ['lost', 'lose', 'losing', 'sad', 'cry', 'crying', 
+                         'upset', 'angry', 'mad', 'hurt', 'pain', 'lonely',
+                         'miss', 'missing', 'broke', 'broken', 'fail', 'failed',
+                         'disappointed', 'terrible', 'awful', 'horrible', 'worry',
+                         'scared', 'fear', 'anxious']
+    
+    positive_keywords = ['love', 'happy', 'joy', 'excited', 'great', 'awesome',
+                         'amazing', 'wonderful', 'fantastic', 'excellent', 'best',
+                         'brilliant', 'perfect', 'delightful', 'pleased', 'glad']
+    
+    text_lower = text.lower()
+    
+    # Count negative and positive keywords
+    negative_count = sum(1 for word in negative_keywords if word in text_lower)
+    positive_count = sum(1 for word in positive_keywords if word in text_lower)
+    
+    # Adjust polarity based on keyword detection
+    if negative_count > positive_count and polarity > -0.1:
+        polarity = -0.3  # Force negative if negative keywords dominate
+    elif positive_count > negative_count and polarity < 0.1:
+        polarity = 0.3   # Force positive if positive keywords dominate
+    
+    # Check for negations (don't, not, never, etc.)
+    if any(neg in text_lower for neg in ["don't", "not", "never", "no ", "isn't", "aren't", "wasn't", "weren't", "won't", "can't"]):
+        # If there's a negation and the polarity is positive, flip it
+        if polarity > 0:
+            polarity = -abs(polarity) * 0.8
+    
+    # Classify based on adjusted polarity score
     if polarity > 0.1:
         emoji = "😀"
         explanation = "Sounds happy! This sentence has positive words."
@@ -72,18 +109,23 @@ def show_teacher_mode():
     - Example: "I love ice cream" = positive score ≈ +0.5
     - Example: "I don't like rain" = negative score ≈ -0.5
     
+    #### How We Improved Accuracy:
+    - ✅ Keyword detection for common emotional words
+    - ✅ Negation handling ("don't", "not", "never")
+    - ✅ Context-aware adjustments
+    - ✅ Override mechanism for TextBlob limitations
+    
     #### Learning Objectives:
     ✅ Understand basic sentiment analysis  
     ✅ Learn about polarity scores  
     ✅ Build interactive web apps with Streamlit  
     ✅ Implement content filtering for safety  
     ✅ Explore real-world AI applications  
+    ✅ Recognize AI limitations and improvements
     """)
 
 # Main App
 def main():
-    st.set_page_config(page_title="Mood2Emoji", page_icon="😀", layout="wide")
-    
     st.title("😀 Mood2Emoji Detector")
     st.markdown("### Discover the mood in your sentences!")
     st.markdown("*A kid-friendly text mood analyzer for ages 12-16*")
@@ -102,7 +144,7 @@ def main():
         **Try these examples:**
         - "I love sunny days!"
         - "I'm excited about the party"
-        - "This homework is boring"
+        - "I lost my favorite book"
         - "The movie was okay"
         """)
         
@@ -168,7 +210,7 @@ def main():
     st.markdown("---")
     st.markdown("""
     <div style='text-align: center; color: gray; font-size: 12px;'>
-        Made with ❤️ for young learners By Akshita Kumari| Safe & Educational
+        Made with ❤️ for young learners By Akshita Kumari | Safe & Educational
     </div>
     """, unsafe_allow_html=True)
 
