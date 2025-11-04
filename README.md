@@ -215,4 +215,4 @@ Created by Akshita Kumari for the Curriculum Developer Intern assignment.
 
 ---
 
-*Built with ❤️ for young learners*
+*Built with ❤️ for young learners by Akshita Kumari*
