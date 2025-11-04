@@ -2,6 +2,14 @@
 
 A simple, interactive web application that helps students (ages 12-16) learn about sentiment analysis by detecting the mood of text and displaying kid-friendly emoji feedback.
 
+## 🌐 Live Demo
+
+**Try it now:** 🚀 **[https://mood2emoji-app.streamlit.app](https://mood2emoji-app.streamlit.app)**
+
+[![Streamlit App](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://mood2emoji-app.streamlit.app)
+
+---
+
 ## 🎯 What This Project Does
 
 Mood2Emoji is an educational tool that:
@@ -13,11 +21,16 @@ Mood2Emoji is an educational tool that:
 
 ## 🚀 Setup and Run Instructions
 
-### Prerequisites
+### Try Online (No Installation Required)
+👉 **[Launch the app](https://mood2emoji-app.streamlit.app)** - Ready to use instantly!
+
+### Run Locally
+
+#### Prerequisites
 - Python 3.9 or higher
 - pip (Python package manager)
 
-### Installation Steps
+#### Installation Steps
 
 1. **Clone the repository**
    ```bash
@@ -169,12 +182,20 @@ For advanced students or follow-up lessons:
 ## 📦 Project Structure
 
 ```
-AKshitakumari-mood2emoji/
+Akshitakumari-mood2emoji/
+├── .streamlit/
+│   └── config.toml     # Light theme configuration
 ├── app.py              # Main Streamlit application
 ├── requirements.txt    # Python dependencies
 ├── README.md          # This file
 └── lesson_plan.pdf    # 60-minute lesson plan for ages 12-16
 ```
+
+## 🔗 Links
+
+- **Live Demo:** [https://mood2emoji-app.streamlit.app](https://mood2emoji-app.streamlit.app)
+- **GitHub Repository:** [https://github.com/akshita317/Akshitakumari-mood2emoji](https://github.com/akshita317/Akshitakumari-mood2emoji)
+- **Lesson Plan:** [View PDF](https://github.com/akshita317/Akshitakumari-mood2emoji/blob/main/lesson_plan.pdf)
 
 ## 🙏 Credits & References
 
@@ -188,8 +209,10 @@ This project is created for educational purposes as part of a curriculum develop
 
 ## 📧 Contact
 
-Created by Akshita kumari for the Curriculum Developer Intern assignment.
+Created by Akshita Kumari for the Curriculum Developer Intern assignment.
+
+**Email:** akshitasingh3027@gmail.com
 
 ---
 
-*Built with ❤️ for young learners* by Akshita kumari
+*Built with ❤️ for young learners*
