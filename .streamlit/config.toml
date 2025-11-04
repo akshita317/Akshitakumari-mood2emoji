@@ -1,0 +1,9 @@
+[theme]
+primaryColor = "#FFB400"        # Happy yellow
+backgroundColor = "#FFFFFF"      # White
+secondaryBackgroundColor = "#FFF9E6"  # Light yellow
+textColor = "#2C3E50"           # Dark blue
+font = "sans serif"
+
+[server]
+headless = true
